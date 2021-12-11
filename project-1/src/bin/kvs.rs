@@ -1,43 +1,46 @@
-use clap::{App, AppSettings, Arg, SubCommand};
 use std::process::exit;
+use structopt::StructOpt;
+
+#[derive(Debug, StructOpt)]
+#[structopt(
+    name = env!("CARGO_PKG_NAME"), 
+    about = env!("CARGO_PKG_DESCRIPTION"), 
+    author = env!("CARGO_PKG_AUTHORS"), 
+    version=env!("CARGO_PKG_VERSION")
+)]
+enum Cli {
+    /// Set the value of the given key
+    Set {
+        #[structopt(name = "KEY", required = true)]
+        key: String,
+        #[structopt(name = "VALUE", required = true)]
+        value: String,
+    },
+    /// Get the value of the given key
+    Get {
+        #[structopt(name = "KEY", required = true)]
+        key: String,
+    },
+    /// Remove the given key
+    Rm {
+        #[structopt(name = "KEY", required = true)]
+        key: String,
+    },
+}
 
 fn main() {
-    let matches = App::new(env!("CARGO_PKG_NAME"))
-        .version(env!("CARGO_PKG_VERSION"))
-        .author(env!("CARGO_PKG_AUTHORS"))
-        .about(env!("CARGO_PKG_DESCRIPTION"))
-        .setting(AppSettings::SubcommandRequiredElseHelp)
-        .subcommand(
-            SubCommand::with_name("set")
-                .about("Set the value of a given key")
-                .arg(Arg::with_name("KEY").required(true))
-                .arg(Arg::with_name("VALUE").required(true)),
-        )
-        .subcommand(
-            SubCommand::with_name("get")
-                .about("Get the value of the given key")
-                .arg(Arg::with_name("KEY").required(true)),
-        )
-        .subcommand(
-            SubCommand::with_name("rm")
-                .about("Remove the given key")
-                .arg(Arg::with_name("KEY").required(true)),
-        )
-        .get_matches();
-
-    match matches.subcommand() {
-        ("set", Some(_matches)) => {
+    match Cli::from_args() {
+        Cli::Set { key, value } => {
             eprintln!("unimplemented");
             exit(1);
         }
-        ("get", Some(_matches)) => {
+        Cli::Get { key } => {
             eprintln!("unimplemented");
             exit(1);
         }
-        ("rm", Some(_matches)) => {
+        Cli::Rm { key } => {
             eprintln!("unimplemented");
             exit(1);
         }
-        (&_, _) => unreachable!(),
     }
 }

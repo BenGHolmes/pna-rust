@@ -14,6 +14,7 @@ use std::collections::HashMap;
 /// assert_eq!(val, Some("bar".to_owned()));
 ///
 /// ```
+#[derive(Default)]
 pub struct KvStore {
     map: HashMap<String, String>,
 }

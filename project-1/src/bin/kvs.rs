@@ -1,4 +1,4 @@
-use clap::{App, AppSettings, Arg, ArgMatches, SubCommand};
+use clap::{App, AppSettings, Arg, SubCommand};
 use std::process::exit;
 
 fn main() {

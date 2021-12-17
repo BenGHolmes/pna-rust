@@ -1,0 +1,20 @@
+[package]
+name = "bb2"
+version = "0.1.0"
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+serde_json = "1.0"
+ron = "0.7"
+serde = { version = "1.0", features = ["derive"] }
+
+
+[lib]
+doctest = false
+
+[[bin]]
+name = "main"
+test = false
+doctest = false

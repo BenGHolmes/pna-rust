@@ -34,4 +34,18 @@ mod tests {
         let buf = ron::ser::to_string(&a).unwrap().into_bytes();
         assert_eq!(a, ron::de::from_bytes(&buf).unwrap());
     }
+
+    #[test]
+    fn bson_serialize_1000() {
+        let mut moves = vec![];
+        for i in 0..1000 {
+            match i % 4 {
+                0 => moves.push(Move::Up(i % 25)),
+                1 => moves.push(Move::Down(i % 25)),
+                2 => moves.push(Move::Left(i % 25)),
+                3 => moves.push(Move::Right(i % 25)),
+                _ => unreachable!(),
+            }
+        }
+    }
 }
